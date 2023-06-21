@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %} ajout-serie {% endblock %}
+{% load crispy_forms_tags %}
+{% comment %} {% load django_bootstrap5 %} {% endcomment %}
+{% block content %}{% endblock content %}
+
+{% block main%}
+
+{% block add %}{% endblock add %}
+
+
+   <div class="container mt-3 w-50">
+      
+      <form method="POST" style="background-color: #E6E6FA" class="card p-3 mt-5" {% block action %} action="{% url 'add_serie' %}" {% endblock action %} autocomplete="off" enctype="multipart/form-data"> 
+            {% csrf_token %}
+
+            {% comment %} {% bootstrap_form form %} {% endcomment %}
+
+         <div class="row">
+            {{form.serie|as_crispy_field}}
+         </div>
+         <div class="row">
+            {{form.entite|as_crispy_field}}
+         </div>
+
+         <div class="mt-4" style="width: 100p%;">
+
+            <button class="waves-effect waves-light teal lighten-2" type="submit" name="action">
+               
+               <i class="material-icons small">save</i>
+             </button>
+
+
+           
+
+            <a href="{% url 'serie' %}" class="waves-effect waves-light" type="submit" name="action" title="Close">
+               <i class="material-icons right">close</i>
+            </a>
+         </div> 
+          
+      </form>
+   </div>
+
+{% endblock main%}
+
+{% block footer %}{% endblock footer %}

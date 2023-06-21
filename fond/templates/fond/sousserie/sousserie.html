@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %} sous-serie {% endblock %}
+
+{% block content %}{% endblock content %}
+
+{% block add %}
+
+<a href="{% url 'add_sousserie' %}" class="btn-floating btn-small waves-effect waves-light blue" title="Ajouter une sousserie">
+    <i class="material-icons">add</i>
+</a>
+        
+{% endblock add %}
+
+{% block main %}
+<div class="container mt-3 w-50">
+    <table id="example" class="table table-striped" style="width:100%">
+        <thead class="table-success">
+            <tr>
+                <th>Id</th>
+                <th>Sous serie</th>
+                <th>Entité</th>
+                <th>Serie</th>
+                <th>Durée</th>
+                <th>Sort Final</th>
+                <th style="width: 18%;">Action</th>
+            </tr>
+        </thead>
+       
+        <tbody>
+            {% for sousserie in sousseries %}
+            <tr>
+                <th scope="row">{{sousserie.id}}</th>
+                <td>{{sousserie.sousserie}}</td>
+                <td>{{sousserie.entite}}</td>
+                <td>{{sousserie.serie}}</td>
+                <td>{{sousserie.duree}}</td>
+                <td>{{sousserie.sort_final}}</td>
+                <td>
+                    <a href="{% url 'edit_sousserie' sousserie.id %}" type="button" class="btn btn-warning" title="Edit sousserie">
+                        <i class="fas fa-pen"></i>
+                    </a>
+                    <a href="{% url 'delete_sousserie' sousserie.id %}" type="button" class="btn btn-danger" title="Supprimer sousserie">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+                {% for message in messages %}
+                        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                        {% if message.tags == 'error' %}
+                            <script>
+                                var m = "{{ message }}";
+                                  swal("Refusé !", "Enter your data correctly.", "error")
+                            </script>
+                                  {% elif message.tags == 'success' %}
+                            <script>
+                                  var m = "{{ message }}";
+                                  swal("Parfait !", m, "success")
+                            </script>
+                        {% endif %}   
+                {% endfor%}
+{% endblock main %}
+
+{% block footer %}{% endblock footer %}
